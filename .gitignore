@@ -1,0 +1,6 @@
+f5/ckpt*
+f5/data*
+f5/out/*
+__pycache__
+*.pt
+*_custom
