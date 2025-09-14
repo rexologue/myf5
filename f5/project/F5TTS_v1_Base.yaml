@@ -20,7 +20,7 @@ optim:
 model:
   name: F5TTS_v1_Base  # model name
   tokenizer: custom  # tokenizer type
-  tokenizer_path: /home/user/f5/project/vocab.txt  # if 'custom' tokenizer, define the path want to use (should be vocab.txt)
+  tokenizer_path: /root/ckpt/vocab.txt  # if 'custom' tokenizer, define the path want to use (should be vocab.txt)
   backbone: DiT
   arch:
     dim: 1024

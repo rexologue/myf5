@@ -16,11 +16,11 @@ from f5_tts.model import CFM, Trainer
 from f5_tts.model.dataset import load_dataset
 from f5_tts.model.utils import get_tokenizer
 
-DS_NAME        = "ekaterina1"
-BATCH_SIZE     = 4
+DS_NAME        = "nastya"
+BATCH_SIZE     = 8
 GRAD_ACC_STEPS = 64
 EPOCHS         = 1000000
-CKPT_PATH      = "/home/user/f5/ckpts_full"
+CKPT_PATH      = "/root/ckpt"
 CONFIG_PATH    = "project/F5TTS_v1_Base.yaml"
 
 def train(model_cfg):

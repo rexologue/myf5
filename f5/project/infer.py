@@ -1,15 +1,17 @@
 import subprocess
 import os
 
+from formater import format_text
+
 # Define paths
-PATH_TO_CKPT  = "/home/user/f5/ckpts_full/model_417600.pt" #"/home/user/audio/f5/ckpts/model_last.pt" #"/home/user/audio/f5/ckpts1/model_426150.pt"
-PATH_TO_VOCAB = "/home/user/f5/project/vocab.txt"
-REF_PATH      = "/home/user/f5/project/refs"
+PATH_TO_CKPT  = "/root/ckpt/model_last.pt"
+PATH_TO_VOCAB = "/root/ckpt/vocab.txt"
+REF_PATH      = "/root/myf5/f5/project/refs1"
 CFG           = "F5TTS_v1_Base"
 DEVICE        = "cuda" #"cpu"
 
 # Infer stuff
-OUTPUT_PATH = "/home/user/f5/out"
+OUTPUT_PATH = "/root/myf5/f5/out"
 # Text to generate
 TEXT_TO_GENERATE = "Нет, для ст+арта не нужн+а. Бенеф+ит от т+очных транскр+иптов в+ыше, чем от разм+етки п+ауз. Если п+озже зах+очется — м+ожно доб+авить прост+ые пр+авки."
 # TEXT_TO_GENERATE = "Ал+иса так+ая каз+явка - пр+осто нет слов. Никогд+а еще не видел+а наст+олько коз+явочную де+вочку!"
@@ -21,9 +23,11 @@ TEXT_TO_GENERATE = (
     "Эй, дидж+ей, заряж+ай пласт+инки!"
 )
 
-TEXT_TO_GENERATE = "Здр+авствуйте! Мен+я зов+ут Екатер+ина, я представ+итель компани+и Орифл+эйм. Подскаж+ите,   вам уд+обно сейч+ас разгов+аривать? "
+# TEXT_TO_GENERATE = "Здр+авствуйте! Мен+я зов+ут Екатер+ина, я представ+итель компани+и Орифл+эйм. Подскаж+ите,   вам уд+обно сейч+ас разгов+аривать? "
 
-# TEXT_TO_GENERATE = "По ит+огу разгов+ора мы прих+одим к том+у, что Крым в пр+инципе им не подх+одит, потом+у что там у с+ервиса, ну на д+анный мом+ент, так+ого, к кот+орому он+и прив+ыкли пр+осто нет."
+TEXT_TO_GENERATE = "По ит+огу разгов+ора мы прих+одим к том+у, что Крым в пр+инципе им не подх+одит, потом+у что там у с+ервиса, ну на д+анный мом+ент, так+ого, к кот+орому он+и прив+ыкли пр+осто нет."
+
+TEXT_TO_GENERATE = "Вам было бы интересно, если бы я предложила подобный вариант?"
 
 # Read reference text
 with open(os.path.join(REF_PATH, "ref.txt"), "r", encoding="utf-8") as f:
@@ -34,15 +38,15 @@ os.chdir("F5_TTS/src")
 
 # Build the command
 command = [
-    "python",
+    "/root/.venv/bin/python",
     "-m",
     "f5_tts.infer.infer_cli",
     "-p", PATH_TO_CKPT,
     "-m", CFG,
     "-v", PATH_TO_VOCAB,
-    "-r", os.path.join(REF_PATH, "ref.wav"),
+    "-r", "/root/data24k/wavs/000000.wav",#os.path.join(REF_PATH, "ref.wav"),
     "-s", REF_TEXT,
-    "-t", TEXT_TO_GENERATE,
+    "-t", format_text(TEXT_TO_GENERATE),
     "-o", OUTPUT_PATH,
     "--device", DEVICE
 ]

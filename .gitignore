@@ -4,3 +4,4 @@ f5/out/*
 __pycache__
 *.pt
 *_custom
+out*
