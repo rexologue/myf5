@@ -20,7 +20,7 @@ DEVICE        = "cuda"             # или "cpu"
 OUTPUT_PATH   = "/root/myf5/f5/out"
 INPUT_PATH    = "/root/myf5/f5/texts"
 
-SILENCE_DURATION_MS = 150          # пауза между аудио-кусочками
+SILENCE_DURATION_MS = 25          # пауза между аудио-кусочками
 MIN_CHARS = 40                     # минимальная длина (символов, без пробелов) для генерации
 COUNT_SPACES = False               # учитывать ли пробелы в MIN_CHARS (False = игнорировать)
 ESTIMATE_MODE = "chars"            # "chars" или "syll"

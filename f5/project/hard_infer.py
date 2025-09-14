@@ -26,23 +26,23 @@ import torch
 import torchaudio
 
 # ====== USER CONFIG ======
-PATH_TO_CKPT   = "/root/ckpt/model_last.pt"
+PATH_TO_CKPT   = "/root/model_last.pt"
 PATH_TO_VOCAB  = "/root/ckpt/vocab.txt"
 REF_PATH       = "/root/myf5/f5/project/refs1"   # ref.wav, ref.txt
 INPUT_PATH     = "/root/myf5/f5/texts"
-OUTPUT_PATH    = "/root/myf5/f5/out1"
+OUTPUT_PATH    = "/root/myf5/f5/out2"
 
 CFG_NAME       = "/root/myf5/f5/project/F5TTS_v1_Base.yaml"
 MEL_SPEC_TYPE  = "vocos"   # "vocos" | "bigvgan"
 DEVICE         = "cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu")
 
 # Разбиение/склейка
-MIN_CHARS                 = 40     # склеиваем короткие предложения до этого порога (без пробелов)
+MIN_CHARS                 = 100     # склеиваем короткие предложения до этого порога (без пробелов)
 EST_CHARS_PER_SEC         = 15.0   # только для лог-оценки длительности
 SILENCE_MS_BETWEEN_GROUPS = 25    # тишина ТОЛЬКО между группами (между предложениями)
 
 # Инференс
-NFE_STEP            = 32
+NFE_STEP            = 64
 CFG_STRENGTH        = 2.0
 SWAY_SAMPLING_COEF  = -1.0
 SPEED               = 1.0

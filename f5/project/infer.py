@@ -44,7 +44,7 @@ command = [
     "-p", PATH_TO_CKPT,
     "-m", CFG,
     "-v", PATH_TO_VOCAB,
-    "-r", "/root/data24k/wavs/000000.wav",#os.path.join(REF_PATH, "ref.wav"),
+    "-r", os.path.join(REF_PATH, "ref.wav"),
     "-s", REF_TEXT,
     "-t", format_text(TEXT_TO_GENERATE),
     "-o", OUTPUT_PATH,
