@@ -46,7 +46,7 @@ command = [
     "-v", PATH_TO_VOCAB,
     "-r", os.path.join(REF_PATH, "ref.wav"),
     "-s", REF_TEXT,
-    "-t", format_text(TEXT_TO_GENERATE),
+    "-t", TEXT_TO_GENERATE,
     "-o", OUTPUT_PATH,
     "--device", DEVICE
 ]
