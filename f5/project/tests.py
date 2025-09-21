@@ -60,7 +60,7 @@ def main():
     out_wavs = os.path.join(out_root, "wavs")
     os.makedirs(out_wavs, exist_ok=True)
 
-    rtf_records: List[Tuple[str, float]] = []
+    records = []
 
     # Генерации
     for idx, row in df.iterrows():
@@ -83,21 +83,32 @@ def main():
 
         # RTF = время генерации / длительность аудио
         dur_sec = max(1e-9, len(wave) / float(sr))
-        rtf = (t1 - t0) / dur_sec
-        rtf_records.append((utt_id, rtf))
+        gen_time = (t1 - t0)
+        rtf = gen_time / dur_sec
+
+        records.append({"utt_id": utt_id, "rtf": rtf, "ttfa": gen_time})
 
         out_wav_path = os.path.join(out_wavs, f"{utt_id}.wav")
         save_wav(wave, out_wav_path, sr=sr)
 
-        print(f"[OK] {utt_id}: {dur_sec:.2f}s audio, {t1-t0:.2f}s gen, RTF={rtf:.3f}")
+        print(f"[OK] {utt_id}: {dur_sec:.2f}s audio, {gen_time:.2f}s gen, RTF={rtf:.3f}")
 
     # Сохраняем metadata.csv с RTF (id|rtf + average)
     out_meta = os.path.join(out_root, "metadata.csv")
-    mean_rtf = sum(v for _, v in rtf_records) / max(1, len(rtf_records))
+
     with open(out_meta, "w", encoding="utf-8") as f:
-        for utt_id, r in rtf_records:
-            f.write(f"{utt_id}|{r:.6f}\n")
-        f.write(f"average|{mean_rtf:.6f}\n")
+        mean_rtf = 0
+        mean_ttfa = 0
+
+        for record in records:
+            mean_rtf += record["rtf"]
+            mean_ttfa += record["ttfa"]
+            f.write(f"{record["utt_id"]}|{record["rtf"]:.6f}|{record["ttfa"]:.6f}\n")
+
+        mean_rtf /= max(1, len(records))
+        mean_ttfa /= max(1, len(records))
+
+        f.write(f"average|{mean_rtf:.6f}|{mean_ttfa:.6f}\n")
 
     print(f"[DONE] Saved WAVs -> {out_wavs}")
     print(f"[DONE] Saved RTF  -> {out_meta}")
